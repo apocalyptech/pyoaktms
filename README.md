@@ -60,3 +60,9 @@ Changelog
 - **Feb 12, 2021**
   - Initial release
 
+License
+-------
+
+PyOakTMS is licensed under the [GPLv3 or later](https://www.gnu.org/licenses/quick-guide-gplv3.html).
+See [COPYING.txt](COPYING.txt) for the full text of the license.
+
