@@ -30,7 +30,9 @@ Install Python 3.x (tested on 3.9+), download the script, and run it from a
 commandline (terminal, `cmd.exe`, Powershell, what have you).  Using the `--help`
 option will give you this output:
 
-    usage: Extract OakTMS Files [-h] [-v] [-l] [-f] [-d DIRECTORY] filename
+    usage: oaktms.py [-h] [-v] [-l] [-f] [-d DIRECTORY] filename
+
+    Extract OakTMS Files
 
     positional arguments:
       filename              OakTMS file to parse

@@ -212,7 +212,9 @@ class TMSArchive:
 if __name__ == '__main__':
 
     # Arguments!
-    parser = argparse.ArgumentParser('Extract OakTMS Files')
+    parser = argparse.ArgumentParser(
+            description='Extract OakTMS Files',
+            )
 
     parser.add_argument('-v', '--verbose',
             action='count',
