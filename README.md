@@ -1,5 +1,5 @@
-Borderlands 3 OakTMS Extractor
-==============================
+Borderlands 3 Python OakTMS Extractor
+=====================================
 
 This is a little commandline Python script to extract Borderlands 3
 OakTMS files.  The OakTMS file is the first bit of network configuration that
