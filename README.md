@@ -47,6 +47,17 @@ option will give you this output:
                             Directory to extract to (will default to the base
                             filename of the OakTMS file)
 
+.locres Parsing
+---------------
+
+This repo also contains `locres.py`, which can be used to view the contents of
+the `*.locres` files which make up the bulk of BL3's OakTMS contents.  This
+implementation is based on [klimaleksus's UE4-locres-Online-Editor](https://github.com/klimaleksus/UE4-locres-Online-Editor),
+and you should check that project out if you want a better implementation.
+The one here is pretty rough-n-ready, and happens to work fine on the BL3
+`.locres` files I've tried so far, but almost certainly has some edge cases
+which would cause failures.
+
 TODO
 ----
 
