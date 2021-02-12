@@ -1,0 +1,62 @@
+Borderlands 3 OakTMS Extractor
+==============================
+
+This is a little commandline Python script to extract Borderlands 3
+OakTMS files.  The OakTMS file is the first bit of network configuration that
+happens when BL3 launches, and serves as the springboard for connecting to all
+of GBX's online services, including hotfixes and the like.
+
+Borderlands 2 + TPS have a similar SparkTMS configuration starting point,
+which can be extracted with [gibbed's SparkTmsUnpack](https://github.com/gibbed/Gibbed.Borderlands2/blob/master/projects/Gibbed.Borderlands2.SparkTmsUnpack/Program.cs)
+application (available in his `all_tools` zipfiles on his
+[releases page](https://github.com/gibbed/Gibbed.Borderlands2/releases)).
+There's a few differences between the BL2/TPS and BL3 versions, though.
+
+Known URLs for OakTMS files are:
+
+- http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/steam/OakTMS-prod.cfg
+- http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/steam/OakTMS-qa.cfg
+- http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/epic/OakTMS-prod.cfg
+- http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/epic/OakTMS-qa.cfg
+
+It'd be nice to figure out the URLs for console versions, so we can find
+out if there's any differences between the two.  I assume endianness would
+likely be different.
+
+Usage
+-----
+
+Install Python 3.x (tested on 3.9+), download the script, and run it from a
+commandline (terminal, `cmd.exe`, Powershell, what have you).  Using the `--help`
+option will give you this output:
+
+    usage: Extract OakTMS Files [-h] [-v] [-l] [-f] [-d DIRECTORY] filename
+
+    positional arguments:
+      filename              OakTMS file to parse
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -v, --verbose         Verbose output (specify twice, for extra debug output)
+      -l, --list            Only list file contents
+      -f, --force           Force overwrite of file contents (will prompt,
+                            otherwise)
+      -d DIRECTORY, --directory DIRECTORY
+                            Directory to extract to (will default to the base
+                            filename of the OakTMS file)
+
+TODO
+----
+
+- I'm not sure if this works properly on Windows.  I may have to do some
+  fiddling with the path separators.  Let me know!
+- As mentioned above, it'd be nice to get some console OakTMS files to verify
+  how those look.
+- I should really adapt this to use [Kaitai Struct](https://kaitai.io/).
+
+Changelog
+---------
+
+- **Feb 12, 2021**
+  - Initial release
+
