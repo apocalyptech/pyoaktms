@@ -70,6 +70,11 @@ TODO
 Changelog
 ---------
 
+- **Feb 13, 2021**
+  - Tightened up input processing when overwrite confirmation is triggered
+  - Provide notification when the extraction dir is set to the current dir
+    (which happens when the util is passed a TMS file with no file extension)
+
 - **Feb 12, 2021**
   - Initial release
 

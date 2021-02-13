@@ -269,6 +269,7 @@ if __name__ == '__main__':
         if not extract_dir:
             extract_dir, ext = os.path.splitext(filename)
             if extract_dir == filename:
+                print('Setting extraction dir to current directory...')
                 extract_dir = '.'
 
         # Loop through and extract
@@ -278,19 +279,33 @@ if __name__ == '__main__':
             full_filename = '/'.join([dirname, base_filename])
             os.makedirs(dirname, exist_ok=True)
             if not force and os.path.exists(full_filename):
-                print('{} already exists - overwrite?'.format(full_filename))
-                resp = input('[y]es/[N]o/[a]lways/[q]uit> '.format(full_filename)).strip().lower()
-                if resp == '':
-                    resp = 'n'
+                invalid = True
+                skipping = False
+                while invalid:
+                    invalid = False
+                    print('{} already exists - overwrite?'.format(full_filename))
+                    resp = input('[y]es/[N]o/[a]lways/[q]uit> '.format(full_filename)).strip().lower()
+                    if resp == '':
+                        resp = 'n'
+                    else:
+                        resp = resp[0]
 
-                if resp== 'n':
-                    print('Skipping!')
+                    if resp== 'n':
+                        print('Skipping!')
+                        skipping = True
+                    elif resp == 'q':
+                        print('Exiting!')
+                        sys.exit(1)
+                    elif resp == 'a':
+                        force = True
+                    elif resp == 'y':
+                        pass
+                    else:
+                        print('Invalid input detected, asking again...')
+                        invalid = True
+
+                if skipping:
                     continue
-                elif resp == 'q':
-                    print('Exiting!')
-                    sys.exit(1)
-                elif resp == 'a':
-                    force = True
 
             # Do the actual writing
             if verbose:
