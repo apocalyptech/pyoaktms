@@ -180,14 +180,15 @@ class TMSArchive:
 
         # Find the common prefix (though we're only stripping out `..`s)
         prefixes = []
-        for prefix in os.path.commonpath(self.files.keys()).split('/'):
-            if prefix == '..':
-                prefixes.append('..')
-            else:
+        max_idx = -1
+        for idx, component in enumerate(zip(*[k.split('/') for k in self.files.keys()])):
+            if not all([p == '..' for p in component]):
+                max_idx = idx
                 break
-        if len(prefixes) > 0:
-            prefixes.append('')
-        self.common_prefix = '/'.join(prefixes)
+        if idx > 0:
+            self.common_prefix = '../'*idx
+        else:
+            self.common_prefix = ''
         if self.verbose:
             print('Found common filename prefix: {}'.format(self.common_prefix))
 
