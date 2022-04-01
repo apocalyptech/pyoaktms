@@ -127,7 +127,7 @@ at their default `0` values.
 
 Repacking a freshly-extracted TMS file should result in a binary-identical new
 file, so long as you've specified the same footer information that was found
-in the original (which you can see by using `-vv` when unpacking).
+in the original (which you can see by using `-vv` when unpacking or listing).
 
 The "magic" number is found in the header of both OakTMS and DaffodilTMS files,
 and is the same for both.  No idea how the game would respond if this was
