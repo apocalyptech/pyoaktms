@@ -113,7 +113,8 @@ into a new OakTMS/DaffodilTMS file.  Its `--help` output looks like this:
                             False)
 
 The vast majority of those options should be safe to leave at the defaults,
-but you can tweak every aspect of the resulting TMS file if you like.  The
+but you can tweak every aspect of the resulting TMS file if you like.  Repacking
+a freshly-extracted TMS file should result in a binary-identical new file.  The
 various "footer" information (including the `date`) is pretty likely to be
 there just for informational purposes for any human looking at the file.
 The TMS compilation/build date, host, and build number, perhaps?  I
