@@ -114,10 +114,16 @@ into a new OakTMS/DaffodilTMS file.  Its `--help` output looks like this:
 
 The vast majority of those options should be safe to leave at the defaults,
 but you can tweak every aspect of the resulting TMS file if you like.  The
-various "footer" information is pretty likely to be there just for informational
-purposes (except for possibly the two uint32s at the end which seem to be
-always zeros).  The date is likewise probably unimportant except for
-informational purposes.
+various "footer" information (including the `date`) is pretty likely to be
+there just for informational purposes for any human looking at the file.
+The TMS compilation/build date, host, and build number, perhaps?  I
+picked an effectively random value for what looks like a build number, as the
+default. 
+
+The file ends with eight bytes which, so far, have always been zeroes.  I've
+chosen to interpret those as two uint32s, and you can set their values with
+`--footer-num1` and `--footer-num2`, but you're probably best off leaving them
+at their default `0` values.
 
 The "magic" number is found in the header of both OakTMS and DaffodilTMS files,
 and is the same for both.  No idea how the game would respond if this was
