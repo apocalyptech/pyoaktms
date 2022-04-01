@@ -113,8 +113,7 @@ into a new OakTMS/DaffodilTMS file.  Its `--help` output looks like this:
                             False)
 
 The vast majority of those options should be safe to leave at the defaults,
-but you can tweak every aspect of the resulting TMS file if you like.  Repacking
-a freshly-extracted TMS file should result in a binary-identical new file.  The
+but you can tweak every aspect of the resulting TMS file if you like.  The
 various "footer" information (including the `date`) is pretty likely to be
 there just for informational purposes for any human looking at the file.
 The TMS compilation/build date, host, and build number, perhaps?  I
@@ -125,6 +124,10 @@ The file ends with eight bytes which, so far, have always been zeroes.  I've
 chosen to interpret those as two uint32s, and you can set their values with
 `--footer-num1` and `--footer-num2`, but you're probably best off leaving them
 at their default `0` values.
+
+Repacking a freshly-extracted TMS file should result in a binary-identical new
+file, so long as you've specified the same footer information that was found
+in the original (which you can see by using `-vv` when unpacking).
 
 The "magic" number is found in the header of both OakTMS and DaffodilTMS files,
 and is the same for both.  No idea how the game would respond if this was
