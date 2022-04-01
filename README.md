@@ -1,10 +1,11 @@
-Borderlands 3 Python OakTMS Extractor
-=====================================
+Borderlands 3 Python OakTMS/DaffodilTMS Extractor
+=================================================
 
-This is a little commandline Python script to extract Borderlands 3
-OakTMS files.  The OakTMS file is the first bit of network configuration that
-happens when BL3 launches, and serves as the springboard for connecting to all
-of GBX's online services, including hotfixes and the like.
+This is a little commandline Python script to extract Borderlands 3 OakTMS
+and Tiny Tina's Wonderlands DaffodilTMS files.  (The format is identical
+for both games.)  The OakTMS/DaffodilTMS file is the first bit of
+network configuration that happens when BL3 launches, and serves as the
+springboard for connecting to all of GBX's online services, including hotfixes and the like.
 
 Borderlands 2 + TPS have a similar SparkTMS configuration starting point,
 which can be extracted with [gibbed's SparkTmsUnpack](https://github.com/gibbed/Gibbed.Borderlands2/blob/master/projects/Gibbed.Borderlands2.SparkTmsUnpack/Program.cs)
@@ -14,10 +15,15 @@ There's a few differences between the BL2/TPS and BL3 versions, though.
 
 Known URLs for OakTMS files are:
 
+**BL3**
 - http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/steam/OakTMS-prod.cfg
 - http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/steam/OakTMS-qa.cfg
 - http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/epic/OakTMS-prod.cfg
 - http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/epic/OakTMS-qa.cfg
+
+**Tiny Tina's Wonderlands**
+- http://cdn.services.gearboxsoftware.com/sparktms/daffodil/pc/epic/DaffodilTMS-prod.cfg
+- http://cdn.services.gearboxsoftware.com/sparktms/daffodil/pc/epic/DaffodilTMS-qa.cfg
 
 It'd be nice to figure out the URLs for console versions, so we can find
 out if there's any differences between the two.  I assume endianness would
@@ -58,6 +64,66 @@ The one here is pretty rough-n-ready, and happens to work fine on the BL3
 `.locres` files I've tried so far, but almost certainly has some edge cases
 which would cause failures.
 
+Repacking
+---------
+
+As of April 2022, this repo also includes a utility to re-pack a directory
+into a new OakTMS/DaffodilTMS file.  Its `--help` output looks like this:
+
+    usage: pack-oaktms.py [-h] [-m MAGIC] [-c CHUNKSIZE] [-p PREFIX] [-d DATE]
+                          [--footer1 FOOTER1] [--footer2 FOOTER2]
+                          [--footer-num1 FOOTER_NUM1] [--footer-num2 FOOTER_NUM2]
+                          [-o OUTPUT] [-f] [-v]
+                          dirname
+
+    Pack OakTMS Files
+
+    positional arguments:
+      dirname               Directory to pack into OakTMS file (the directory name
+                            itself will not be included)
+
+    options:
+      -h, --help            show this help message and exit
+      -m MAGIC, --magic MAGIC
+                            Magic number (identical for Oak and Daffodil)
+                            (default: 2653586369)
+      -c CHUNKSIZE, --chunksize CHUNKSIZE
+                            Chunk size to use in the TMS file (default: 131072)
+      -p PREFIX, --prefix PREFIX
+                            Common prefix to prepend to raw OakTMS paths (default:
+                            ../../..)
+      -d DATE, --date DATE  Datetime (MM/DD/YY HH:MM:SS) to report in the footer
+                            (defaults to current time) (default: None)
+      --footer1 FOOTER1     First "footer" line to add (purpose unknown) (default:
+                            cbauer)
+      --footer2 FOOTER2     Second "footer" line to add (purpose unknown)
+                            (default: CBAUER-Q42)
+      --footer-num1 FOOTER_NUM1
+                            First "footer" number to add (purpose unknown)
+                            (default: 0)
+      --footer-num2 FOOTER_NUM2
+                            Second "footer" number to add (purpose unknown)
+                            (default: 0)
+      -o OUTPUT, --output OUTPUT
+                            Output file (defaults to the name of the dir with
+                            `.cfg` appended) (default: None)
+      -f, --force           Force overwrite of file (will prompt, otherwise)
+                            (default: False)
+      -v, --verbose         Verbose output (just adds filename listing) (default:
+                            False)
+
+The vast majority of those options should be safe to leave at the defaults,
+but you can tweak every aspect of the resulting TMS file if you like.  The
+various "footer" information is pretty likely to be there just for informational
+purposes (except for possibly the two uint32s at the end which seem to be
+always zeros).  The date is likewise probably unimportant except for
+informational purposes.
+
+The "magic" number is found in the header of both OakTMS and DaffodilTMS files,
+and is the same for both.  No idea how the game would respond if this was
+changed.  The `chunksize` parameter is the chunks of uncompressed data which
+will be individually compressed using zlib.
+
 TODO
 ----
 
@@ -69,6 +135,10 @@ TODO
 
 Changelog
 ---------
+
+- **April 1, 2022**
+  - Added util to repack TMS files, and made a note of the DaffodilTMS files
+    that Wonderlands uses (turns out to be identical to OakTMS)
 
 - **Feb 13, 2021**
   - Tightened up input processing when overwrite confirmation is triggered

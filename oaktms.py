@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # vim: set expandtab tabstop=4 shiftwidth=4:
 
-# Copyright 2021 Christopher J. Kucera
+# Copyright 2021-2022 Christopher J. Kucera
 # <cj@apocalyptech.com>
 # <http://apocalyptech.com/contact.php>
 #
@@ -28,17 +28,22 @@ import argparse
 class TMSArchive:
     """
     Silly little class to hold the files that we've extracted from
-    an OakTMS file.
+    an OakTMS/DaffodilTMS file.
 
     Known OakTMS URLs (would be interested to figure out what the console versions
     are, assuming they do the same thing):
 
+    BL3:
     http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/steam/OakTMS-prod.cfg
     http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/steam/OakTMS-qa.cfg
     http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/epic/OakTMS-prod.cfg
     http://cdn.services.gearboxsoftware.com/sparktms/oak/pc/epic/OakTMS-qa.cfg
 
-    As of writing, Steam+EGS versions are identical, as you'd hope.
+    Tiny Tina's Wonderlands:
+    http://cdn.services.gearboxsoftware.com/sparktms/daffodil/pc/epic/DaffodilTMS-prod.cfg
+    http://cdn.services.gearboxsoftware.com/sparktms/daffodil/pc/epic/DaffodilTMS-qa.cfg
+
+    As of writing, BL3 Steam+EGS versions are identical, as you'd hope.
     """
 
     def __init__(self, filename, verbose=False):
@@ -214,7 +219,7 @@ if __name__ == '__main__':
 
     # Arguments!
     parser = argparse.ArgumentParser(
-            description='Extract OakTMS Files',
+            description='Extract OakTMS/DaffodilTMS Files',
             )
 
     parser.add_argument('-v', '--verbose',
